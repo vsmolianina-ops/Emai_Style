@@ -5,6 +5,8 @@ Product: AI voice companion for seniors. Audience: seniors, their families, care
 
 Machine-readable tokens: `design-system/tokens.json`. Full rules: `design-system/brand-core.md`. Human guide: `design-system/EMAi-Design-System-Foundations.html`.
 
+> **Note:** Do NOT reference `EMAi-Visual-Style-Guide.md` — that file is not part of this design system.
+
 ## Colors
 
 - Backgrounds: Cream `#F7F4EB` (primary), Cream Soft `#FBF9F3`, Cream Deep `#EFE9D9` (dividers/hover), White `#FFFFFF` (cards)
