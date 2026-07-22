@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EMAi · Design System — Foundations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gantari:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F7F4EB; --cream-soft:#FBF9F3; --cream-deep:#EFE9D9; --white:#FFFFFF;
+    --ink:#000000; --dark:#4D4D4D; --dark-soft:#4D4D4D; --grey-light:#CACBD3; --surface-dark:#5E6472;
+    --line:#E2DDD0;
+    --amber:#D69043; --amber-soft:#E8B074; --amber-deep:#B87530;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    background:var(--cream); color:var(--dark);
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Gantari',system-ui,sans-serif;color:var(--ink);letter-spacing:-0.02em;line-height:1.12;text-wrap:balance}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  section{padding:72px 0;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:'Inter';font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+  .lead{font-size:19px;color:var(--dark);max-width:60ch;margin-top:12px}
+  .sec-num{font-family:'Inter';font-weight:700;color:var(--grey-light);font-size:14px}
+  p{margin-top:12px;max-width:66ch}
+  strong{color:var(--ink);font-weight:600}
+  .grid{display:grid;gap:20px}
+
+  /* HERO */
+  header.hero{background:var(--surface-dark);color:var(--white);padding:88px 0 76px}
+  header.hero .wrap{max-width:var(--maxw)}
+  .logo{font-family:'Gantari';font-weight:800;font-size:56px;letter-spacing:-.03em;color:#fff;display:inline-flex;align-items:flex-start}
+  .logo .dot{color:var(--amber)}
+  header.hero h1{color:#fff;font-size:clamp(34px,5vw,60px);font-weight:700;margin-top:8px}
+  header.hero .tagline{color:var(--amber);font-weight:600;letter-spacing:.02em;font-size:15px;margin-top:6px}
+  header.hero p{color:#c9cdd8;font-size:18px;margin-top:22px;max-width:62ch}
+  .meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:34px;font-size:13px;color:#9aa0ae}
+  .meta b{color:#fff;font-weight:600}
+
+  /* NAV */
+  nav.toc{position:sticky;top:0;z-index:20;background:rgba(247,244,235,.9);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav.toc .wrap{display:flex;gap:6px;flex-wrap:wrap;padding-top:12px;padding-bottom:12px}
+  nav.toc a{font-size:12.5px;font-weight:500;color:var(--dark);text-decoration:none;padding:6px 12px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+  nav.toc a:hover{background:var(--white);border-color:var(--line);color:var(--ink)}
+
+  /* COLOR SWATCHES */
+  .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;margin-top:26px}
+  .sw{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--white);cursor:pointer;transition:transform .12s,box-shadow .12s}
+  .sw:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(45,49,66,.10)}
+  .sw .chip{height:96px;position:relative}
+  .sw .chip .copy{position:absolute;top:10px;right:12px;font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.85);color:var(--ink);opacity:0;transition:opacity .15s}
+  .sw:hover .chip .copy{opacity:1}
+  .sw .body{padding:14px 16px 16px}
+  .sw .name{font-family:'Gantari';font-weight:600;color:var(--ink);font-size:15px}
+  .sw .role{font-size:12px;color:var(--dark-soft);margin-top:2px;min-height:30px}
+  .sw .vals{font-size:11.5px;color:var(--dark);margin-top:10px;line-height:1.7;font-variant-numeric:tabular-nums}
+  .sw .vals b{color:var(--ink);font-weight:600}
+  .group-label{font-family:'Gantari';font-weight:700;font-size:14px;color:var(--dark-soft);text-transform:uppercase;letter-spacing:.06em;margin:30px 0 4px}
+
+  .callout{background:var(--cream-deep);border-left:3px solid var(--amber);border-radius:0 14px 14px 0;padding:18px 22px;margin-top:24px;font-size:14.5px}
+  .callout.fix{background:#fbeee0;border-color:var(--amber-deep)}
+  .callout .t{font-family:'Gantari';font-weight:700;color:var(--ink);display:block;margin-bottom:6px;font-size:14px}
+  code{font-family:'Inter';background:var(--white);border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:.86em;color:var(--amber-deep);font-weight:600;font-variant-numeric:tabular-nums}
+
+  .pair{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;font-size:13.5px;gap:14px;flex-wrap:wrap}
+  .pair .dotrow{display:flex;gap:8px;align-items:center}
+  .b{width:20px;height:20px;border-radius:5px;border:1px solid rgba(0,0,0,.08)}
+
+  /* LOGO variations */
+  .logovars{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:24px}
+  .lv{border-radius:18px;border:1px solid var(--line);min-height:190px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:22px 14px}
+  .lv .cap{font-size:11px;color:var(--dark-soft);text-align:center;line-height:1.6}
+  .lv .cap code{font-size:10px}
+  .dont{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:20px}
+  .dont div{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:13px}
+  .dont .x{color:#b23b3b;font-weight:700;font-family:'Gantari'}
+
+  /* TYPE scale */
+  .type-row{border-bottom:1px dashed var(--line);padding:18px 0;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:baseline}
+  .type-row .spec{font-size:12px;color:var(--dark-soft);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;line-height:1.5}
+  .t-h1{font-family:'Gantari';font-weight:700;font-size:52px;color:var(--ink);letter-spacing:-.02em}
+  .t-h2{font-family:'Gantari';font-weight:600;font-size:38px;color:var(--ink);letter-spacing:-.02em}
+  .t-h3{font-family:'Gantari';font-weight:600;font-size:24px;color:var(--ink)}
+  .t-body{font-family:'Inter';font-weight:400;font-size:17px;color:var(--dark)}
+  .t-cap{font-family:'Inter';font-weight:500;font-size:13px;color:var(--dark-soft);letter-spacing:.02em}
+  .t-price{font-family:'Inter';font-weight:700;font-size:40px;color:var(--amber)}
+  .fontcards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0 4px}
+  @media(max-width:640px){.fontcards{grid-template-columns:1fr}}
+  .fontcard{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:22px}
+  .fontcard .big{font-size:44px;color:var(--ink);letter-spacing:-.02em;line-height:1}
+  .fontcard .nm{font-family:'Gantari';font-weight:700;color:var(--ink);margin-top:14px;font-size:16px}
+  .fontcard .use{font-size:13px;color:var(--dark-soft);margin-top:2px}
+  .fontcard .gl{font-size:13px;color:var(--dark);margin-top:12px}
+
+  /* spacing */
+  .spacescale{display:flex;flex-direction:column;gap:8px;margin-top:22px}
+  .spacescale .row{display:flex;align-items:center;gap:14px;font-size:12.5px;color:var(--dark-soft)}
+  .spacescale .bar{background:var(--amber-soft);height:16px;border-radius:4px}
+  .spacescale .row b{color:var(--ink);width:64px;font-variant-numeric:tabular-nums}
+
+  /* icons */
+  .iconrow{display:flex;gap:22px;flex-wrap:wrap;margin-top:22px}
+  .iconrow .ic{width:70px;height:70px;border-radius:16px;background:var(--white);border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+  .iconrow svg{width:34px;height:34px;stroke:var(--dark);stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .iconrow .ic.accent svg{stroke:var(--amber)}
+
+  /* photo */
+  .photorules{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+  @media(max-width:640px){.photorules{grid-template-columns:1fr}}
+  .photorules .card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:20px 22px}
+  .photorules .card h4{font-size:15px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .photorules ul{margin-left:18px;font-size:14px}
+  .photorules li{margin-top:6px}
+  .yes h4{color:#3c7a4e}.no h4{color:#b23b3b}
+
+  /* checklist */
+  .checklist{margin-top:22px;display:grid;gap:10px}
+  .checklist label{display:flex;gap:12px;align-items:flex-start;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:14.5px;cursor:pointer}
+  .checklist input{margin-top:3px;width:17px;height:17px;accent-color:var(--amber)}
+
+  footer{padding:44px 0 60px;color:var(--dark-soft);font-size:13px}
+  .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface-dark);color:#fff;padding:11px 20px;border-radius:999px;font-size:13px;font-weight:600;opacity:0;transition:.22s;pointer-events:none;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .ttable{width:100%;border-collapse:collapse;margin-top:16px;font-size:13.5px;background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .ttable th,.ttable td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  .ttable th{font-family:'Gantari';font-weight:600;color:var(--ink);font-size:12px;background:var(--cream-soft);letter-spacing:.02em}
+  .ttable tr:last-child td{border-bottom:none}
+  .ttable td{font-variant-numeric:tabular-nums;color:var(--dark)}
+  .ttable td b{color:var(--ink);font-weight:600}
+  .ttable .lvl{font-family:'Gantari';font-weight:600;color:var(--ink);white-space:nowrap}
+  @media(max-width:640px){.ttable{font-size:12px}.ttable th,.ttable td{padding:9px 10px}}
+  .tovoice{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+  @media(max-width:640px){.tovoice{grid-template-columns:1fr}}
+  .tovoice .c{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:20px 22px;font-size:14px}
+  .tovoice .c h4{font-size:14px;margin-bottom:10px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <img src="assets/logo/Logo_Emai_main_light.svg" alt="EMAi — caring by tech" style="width:220px;display:block">
+    <h1 style="margin-top:18px">Design System — Foundations</h1>
+    <p>Єдине джерело правди для всіх носіїв бренду: сайт, лендінг-презентація, PPT, соцмережі, флаєр. Спочатку правила — потім макети.</p>
+    <div class="meta">
+      <span>Версія <b>1.0</b></span>
+      <span>Оновлено <b>22.07.2026</b></span>
+      <span>Обсяг <b>Foundations (Кроки 1–3)</b></span>
+      <span>Шрифти <b>Gantari + Inter</b></span>
+    </div>
+  </div>
+</header>
+
+<nav class="toc"><div class="wrap">
+  <a href="#intro">Вступ</a>
+  <a href="#logo">Логотип</a>
+  <a href="#color">Кольори</a>
+  <a href="#type">Типографіка</a>
+  <a href="#grid">Сітка</a>
+  <a href="#icons">Іконки</a>
+  <a href="#photo">Фото</a>
+  <a href="#voice">Tone of voice</a>
+  <a href="#print">Друк</a>
+  <a href="#smm">SMM</a>
+  <a href="#ppt">Презентація</a>
+  <a href="#check">Чекліст</a>
+</div></nav>
+
+<!-- 1 INTRO -->
+<section id="intro"><div class="wrap">
+  <span class="sec-num">01</span>
+  <div class="eyebrow">Вступ</div>
+  <h2>Навіщо цей документ</h2>
+  <p class="lead">Раніше кожен носій жив за своїми правилами — п'ять різних шрифтів, три різні «креми», помилки в кольорах. Цей документ фіксує один набір правил, з яких збирається будь-який матеріал EMAi.</p>
+  <div class="callout">
+    <span class="t">Правило №1 — написання назви</span>
+    Завжди <strong>EMAi</strong> — великі «EMA», мала «i». Ніколи не «EMAI», «Emai» чи «emai». Крапка над «i» в лого — завжди бурштинова.
+  </div>
+</div></section>
+
+<!-- 2 LOGO -->
+<section id="logo"><div class="wrap">
+  <span class="sec-num">02</span>
+  <div class="eyebrow">Логотип</div>
+  <h2>Логотип і його застосування</h2>
+  <p>Wordmark <strong>EMAi</strong> з бурштиновою крапкою над «i», підкресленням і слоганом <strong>«caring by tech»</strong>. Файли — у папці <code>Emai_Logo/</code>: <code>main</code> зі слоганом, <code>small</code> без (для ширини &lt; 120px). Використовувати тільки ці SVG, не перемальовувати.</p>
+
+  <div class="logovars">
+    <div class="lv" style="background:var(--cream)">
+      <img src="assets/logo/Logo_EMAI_main.svg" alt="EMAi лого — головне" style="width:150px">
+      <div class="cap">головне · на кремовому й білому<br><code>Logo_EMAI_main.svg</code></div>
+    </div>
+    <div class="lv" style="background:var(--surface-dark)">
+      <img src="assets/logo/Logo_Emai_main_light.svg" alt="EMAi лого — основне світле" style="width:150px">
+      <div class="cap" style="color:#c9cdd8">основне світле · на сірому (Surface Dark)<br><code>Logo_Emai_main_light.svg</code></div>
+    </div>
+    <div class="lv" style="background:var(--white)">
+      <img src="assets/logo/Logo_EMAI_main.svg" alt="EMAi лого — головне на білому" style="width:150px">
+      <div class="cap">головне · на білому<br><code>Logo_EMAI_main.svg</code></div>
+    </div>
+    <div class="lv" style="background:var(--white)">
+      <img src="assets/logo/Logo_EMAI_main_black.svg" alt="EMAi лого — чорне" style="width:150px">
+      <div class="cap" style="max-width:230px">чорна та біла версії <b>не є стандартними</b> — використовуються лише за окремим запитом: монохромний друк, документи, партнерські носії з обмеженнями по кольору. У щоденних макетах завжди беремо головне або світле лого.<br><code>Logo_EMAI_main_black.svg</code> · <code>Logo_EMAI_main_white.svg</code></div>
+    </div>
+  </div>
+  <p style="font-size:13px;color:var(--dark-soft);margin-top:10px">На картках показані лише повні логотипи. Короткі версії (<code>Logo_Emai_small_*</code>, без слогана) — у папці <code>Emai_Logo/</code>, для ширини менше 120px; логіка кольорів та сама.</p>
+
+  <div class="callout">
+    <span class="t">Захисне поле й розмір</span>
+    Вільне поле навколо лого — не менше висоти літери «E». Мінімальна ширина: <code>80px</code> (екран) / <code>22мм</code> (друк). Крапка над «i» — завжди <code>#D69043</code>.
+  </div>
+
+  <div class="dont">
+    <div><span class="x">✕</span> не міняти колір крапки</div>
+    <div><span class="x">✕</span> не розтягувати / не нахиляти</div>
+    <div><span class="x">✕</span> не додавати тінь чи обведення</div>
+    <div><span class="x">✕</span> не ставити на строкате фото без підкладки</div>
+  </div>
+</div></section>
+
+<!-- 3 COLOR -->
+<section id="color"><div class="wrap">
+  <span class="sec-num">03</span>
+  <div class="eyebrow">Кольори</div>
+  <h2>Кольорова палітра</h2>
+  <p class="lead">Виправлена й зведена палітра. Клікни на плашку, щоб скопіювати HEX. CMYK — приблизні (sRGB), під друк уточнити за профілем друкарні.</p>
+
+  <div class="callout fix">
+    <span class="t">Що виправлено проти старого брендбуку</span>
+    Три різні «креми» зведено до одного — <code>#F7F4EB</code> (як на сайті). Виправлено одруківку сірого: RGB <code>202 203 111</code> → <code>202 203 211</code> (<code>#CACBD3</code>). Бурштин <code>#D69043</code> лишається без змін — це ядро бренду.
+  </div>
+
+  <div class="group-label">Фони</div>
+  <div class="swatches">
+    <div class="sw" data-hex="#F7F4EB"><div class="chip" style="background:#F7F4EB"><span class="copy">копіювати</span></div><div class="body"><div class="name">Cream</div><div class="role">Основний фон сторінки / секцій</div><div class="vals"><b>HEX</b> #F7F4EB<br><b>RGB</b> 247 244 235<br><b>CMYK</b> 0 1 5 3</div></div></div>
+    <div class="sw" data-hex="#FBF9F3"><div class="chip" style="background:#FBF9F3"><span class="copy">копіювати</span></div><div class="body"><div class="name">Cream Soft</div><div class="role">Світліший — вкладені блоки</div><div class="vals"><b>HEX</b> #FBF9F3<br><b>RGB</b> 251 249 243<br><b>CMYK</b> 0 1 3 2</div></div></div>
+    <div class="sw" data-hex="#EFE9D9"><div class="chip" style="background:#EFE9D9"><span class="copy">копіювати</span></div><div class="body"><div class="name">Cream Deep</div><div class="role">Розділювачі, hover на кремовому</div><div class="vals"><b>HEX</b> #EFE9D9<br><b>RGB</b> 239 233 217<br><b>CMYK</b> 3 5 12 6</div></div></div>
+    <div class="sw" data-hex="#FFFFFF"><div class="chip" style="background:#FFFFFF;border-bottom:1px solid var(--line)"><span class="copy">копіювати</span></div><div class="body"><div class="name">White</div><div class="role">Картки, секції, навігація</div><div class="vals"><b>HEX</b> #FFFFFF<br><b>RGB</b> 255 255 255<br><b>CMYK</b> 0 0 0 0</div></div></div>
+    <div class="sw" data-hex="#5E6472"><div class="chip" style="background:#5E6472"><span class="copy">копіювати</span></div><div class="body"><div class="name">Surface Dark</div><div class="role">Тільки темні секції (титул, розділювач) — <b>не текст</b></div><div class="vals"><b>HEX</b> #5E6472<br><b>RGB</b> 94 100 114<br><b>CMYK</b> 62 51 38 12</div></div></div>
+  </div>
+
+  <div class="group-label">Текст</div>
+  <div class="swatches">
+    <div class="sw" data-hex="#000000"><div class="chip" style="background:#000000"><span class="copy">копіювати</span></div><div class="body"><div class="name">Text 100</div><div class="role">Заголовки H1–H2, головний текст — 100% чорний</div><div class="vals"><b>HEX</b> #000000<br><b>RGB</b> 0 0 0<br><b>CMYK</b> 0 0 0 100</div></div></div>
+    <div class="sw" data-hex="#4D4D4D"><div class="chip" style="background:#4D4D4D"><span class="copy">копіювати</span></div><div class="body"><div class="name">Text 70</div><div class="role">Основний і другорядний текст — 70% чорного</div><div class="vals"><b>HEX</b> #4D4D4D<br><b>RGB</b> 77 77 77<br><b>CMYK</b> 0 0 0 70</div></div></div>
+    <div class="sw" data-hex="#CACBD3"><div class="chip" style="background:#CACBD3"><span class="copy">копіювати</span></div><div class="body"><div class="name">Grey Light</div><div class="role">Тільки світле накреслення лого / disabled — <b>не фон</b></div><div class="vals"><b>HEX</b> #CACBD3<br><b>RGB</b> 202 203 211<br><b>CMYK</b> 20 16 11 0</div></div></div>
+  </div>
+
+  <div class="group-label">Акцент</div>
+  <div class="swatches">
+    <div class="sw" data-hex="#D69043"><div class="chip" style="background:#D69043"><span class="copy">копіювати</span></div><div class="body"><div class="name">Amber ★</div><div class="role">Ядро бренду: ціни, іконки, посилання, активне</div><div class="vals"><b>HEX</b> #D69043<br><b>RGB</b> 214 144 67<br><b>CMYK</b> 15 48 86 1</div></div></div>
+    <div class="sw" data-hex="#E8B074"><div class="chip" style="background:#E8B074"><span class="copy">копіювати</span></div><div class="body"><div class="name">Amber Soft</div><div class="role">Hover, другорядні акценти</div><div class="vals"><b>HEX</b> #E8B074<br><b>RGB</b> 232 176 116<br><b>CMYK</b> 8 34 58 0</div></div></div>
+    <div class="sw" data-hex="#B87530"><div class="chip" style="background:#B87530"><span class="copy">копіювати</span></div><div class="body"><div class="name">Amber Deep</div><div class="role">Натиснутий стан, темніший акцент</div><div class="vals"><b>HEX</b> #B87530<br><b>RGB</b> 184 117 48<br><b>CMYK</b> 24 57 92 8</div></div></div>
+    <div class="sw" data-hex="#E2DDD0"><div class="chip" style="background:#E2DDD0"><span class="copy">копіювати</span></div><div class="body"><div class="name">Line</div><div class="role">Лінії, бордери карток</div><div class="vals"><b>HEX</b> #E2DDD0<br><b>RGB</b> 226 221 208<br><b>CMYK</b> 11 11 18 1</div></div></div>
+  </div>
+
+  <div class="group-label">Правила поєднання</div>
+  <div class="grid" style="margin-top:14px">
+    <div class="pair"><div class="dotrow"><span class="b" style="background:#F7F4EB"></span> Cream фон</div><div>→ <strong>Ink</strong> заголовки · <strong>Dark</strong> текст · <strong>Amber</strong> акценти</div></div>
+    <div class="pair"><div class="dotrow"><span class="b" style="background:#fff"></span> White фон</div><div>→ <strong>Ink</strong> заголовки · <strong>Dark</strong> текст · <strong>Amber</strong> акценти</div></div>
+    <div class="pair"><div class="dotrow"><span class="b" style="background:#5E6472"></span> Surface Dark фон</div><div>→ <strong>White</strong> текст · <strong>Amber</strong> акценти (темні секції, титул, розділювач)</div></div>
+    <div class="pair"><div class="dotrow"><span class="b" style="background:#D69043"></span> Amber фон</div><div>→ <strong>Cream</strong> або <strong>White</strong> текст</div></div>
+  </div>
+  <div class="callout fix"><span class="t">Чорні — тільки для тексту</span><strong>Text 100</strong> <code>#000000</code> і <strong>Text 70</strong> <code>#4D4D4D</code> — виключно текст, ніколи не фон. Якщо потрібна темна поверхня (титул, розділювач, кнопка) — беремо окремий токен <strong>Surface Dark</strong> <code>#5E6472</code>.</div>
+  <div class="callout"><span class="t">Головне правило акценту</span>Виділяти можна <strong>тільки бурштином</strong>. Ніякого синього, зеленого, червоного для акцентів — вони не в палітрі бренду.</div>
+</div></section>
+
+<!-- 4 TYPOGRAPHY -->
+<section id="type"><div class="wrap">
+  <span class="sec-num">04</span>
+  <div class="eyebrow">Типографіка</div>
+  <h2>Шрифти та шкала</h2>
+  <p class="lead">Дві гарнітури, обидві безкоштовні в Google Fonts — тож однаково стають на сайт, у PPT, Canva й друк.</p>
+
+  <div class="fontcards">
+    <div class="fontcard">
+      <div class="big" style="font-family:'Gantari';font-weight:700">Gantari</div>
+      <div class="nm">Gantari</div>
+      <div class="use">Заголовки H1–H4, великий текст, цифри</div>
+      <div class="gl" style="font-family:'Gantari'">AaБбВвGg 0123456789 — Regular · Medium · Semibold · Bold</div>
+    </div>
+    <div class="fontcard">
+      <div class="big" style="font-family:'Inter';font-weight:600">Inter</div>
+      <div class="nm">Inter</div>
+      <div class="use">Основний текст, UI, кнопки, підписи, ціни</div>
+      <div class="gl" style="font-family:'Inter'">AaБбВвGg 0123456789 — Regular · Medium · Semibold · Bold</div>
+    </div>
+  </div>
+
+  <div style="margin-top:26px">
+    <div class="type-row"><div class="t-h1">Заголовок H1</div><div class="spec">Gantari Bold 700<br>52–84px · трекінг −0.02em<br>line-height 1.1</div></div>
+    <div class="type-row"><div class="t-h2">Заголовок H2</div><div class="spec">Gantari Semibold 600<br>38–60px · трекінг −0.02em<br>line-height 1.15</div></div>
+    <div class="type-row"><div class="t-h3">Заголовок H3 / картка</div><div class="spec">Gantari Medium 500<br>22–26px<br>line-height 1.2</div></div>
+    <div class="type-row"><div class="t-body">Основний текст. EMAi — розумний голосовий помічник для літніх людей, що піклується про них щодня.</div><div class="spec">Inter Regular 400<br>16–18px<br>line-height 1.6–1.7</div></div>
+    <div class="type-row"><div class="t-cap">ПІДПИС / МІТКА / UI</div><div class="spec">Inter Medium 500<br>13–14px · трекінг +0.02em</div></div>
+    <div class="type-row"><div class="t-price">€40<span style="font-size:15px;color:var(--dark-soft);font-weight:400">/місяць</span></div><div class="spec">Inter Bold 700<br>40–48px · колір Amber</div></div>
+  </div>
+  <div class="group-label">Ієрархія — 4 рівні (правила шрифтів)</div>
+  <p style="font-size:14px">Чотири рівні, більше не потрібно. Крок між рівнями — <strong>×~1.5</strong> (модульна шкала). На одному макеті — не більше цих чотирьох.</p>
+  <table class="ttable">
+    <thead><tr><th>Рівень</th><th>Шрифт / вага</th><th>Трекінг</th><th>Інтерліньяж</th><th>Колір</th><th>Роль</th></tr></thead>
+    <tbody>
+      <tr><td class="lvl">Заголовок 1-го&nbsp;порядку<br><span style="font-weight:400;color:var(--dark-soft);font-family:Inter">H1</span></td><td><b>Gantari</b> Bold 700</td><td>−0.02em</td><td>1.1</td><td><b>Text 100</b> #000000</td><td>Головний заголовок екрана/сторінки. <b>Один на макет.</b></td></tr>
+      <tr><td class="lvl">Заголовок 2-го&nbsp;порядку<br><span style="font-weight:400;color:var(--dark-soft);font-family:Inter">H2</span></td><td><b>Gantari</b> Semibold 600</td><td>−0.02em</td><td>1.15</td><td><b>Text 100</b> #000000</td><td>Назви секцій, підзаголовки.</td></tr>
+      <tr><td class="lvl">Основний текст<br><span style="font-weight:400;color:var(--dark-soft);font-family:Inter">Body</span></td><td><b>Inter</b> Regular 400</td><td>0</td><td>1.6–1.7</td><td><b>Text 70</b> #4D4D4D</td><td>Абзаци, описи, головний вміст.</td></tr>
+      <tr><td class="lvl">Другорядний текст<br><span style="font-weight:400;color:var(--dark);font-family:Inter">Secondary</span></td><td><b>Inter</b> Medium 500</td><td>+0.02em</td><td>1.5</td><td><b>Text 70</b> #4D4D4D</td><td>Підписи, мітки, виноски. Відрізняється розміром і вагою, не кольором.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout"><span class="t">Заміни, якщо шрифт недоступний</span>Gantari → <strong>DM Sans</strong> або <strong>Plus Jakarta Sans</strong>. Inter → системний <strong>Inter</strong> є всюди. Заголовки: <code>text-wrap:balance</code>, абзаци: <code>text-wrap:pretty</code>.</div>
+</div></section>
+
+<!-- 5 GRID -->
+<section id="grid"><div class="wrap">
+  <span class="sec-num">05</span>
+  <div class="eyebrow">Сітка й відступи</div>
+  <h2>Простір і ритм</h2>
+  <p>Контейнер контенту — <strong>max 1280px</strong>, горизонтальний padding <code>24px</code> (моб) / <code>40px</code> (планшет+). Вертикальні відступи секцій: <code>64px</code> моб · <code>80px</code> планшет · <code>96px</code> десктоп.</p>
+  <div class="spacescale">
+    <div class="row"><b>4px</b><div class="bar" style="width:16px"></div><span>мікро — між іконкою й текстом</span></div>
+    <div class="row"><b>8px</b><div class="bar" style="width:32px"></div><span>дрібний — всередині елементів</span></div>
+    <div class="row"><b>16px</b><div class="bar" style="width:64px"></div><span>базовий — gap між картками (моб)</span></div>
+    <div class="row"><b>24px</b><div class="bar" style="width:96px"></div><span>gap між картками (десктоп), padding картки</span></div>
+    <div class="row"><b>36px</b><div class="bar" style="width:144px"></div><span>padding картки (десктоп)</span></div>
+    <div class="row"><b>64–96px</b><div class="bar" style="width:210px"></div><span>відступи секцій</span></div>
+  </div>
+  <div class="callout"><span class="t">Радіуси</span>Кнопки <code>12px</code> · картки <code>24px</code> · іконка-кружечок <code>50%</code>. Тінь картки: <code>0 8px 32px rgba(45,49,66,.08)</code>.</div>
+
+  <div class="group-label">Внутрішні відступи по носіях</div>
+  <p style="font-size:14px">Три рівні простору для кожного носія: <strong>поле контенту</strong> (від краю макета) → <strong>gutter</strong> (між блоками) → <strong>padding</strong> (усередині блоку/картки). Пропорція витримується скрізь: поле ≥ gutter ≥ внутрішній padding не менший за текст.</p>
+  <table class="ttable">
+    <thead><tr><th>Носій</th><th>Поле контенту (від краю)</th><th>Gutter (між блоками)</th><th>Padding усередині блоку</th></tr></thead>
+    <tbody>
+      <tr><td class="lvl">Веб / лендінг</td><td><b>24px</b> моб · <b>40px</b> планшет+</td><td><b>16px</b> моб · <b>24px</b> десктоп</td><td><b>28–36px</b></td></tr>
+      <tr><td class="lvl">PPT (16:9, 1920×1080)</td><td><b>64–80px</b> з усіх боків</td><td><b>32–48px</b></td><td><b>40–56px</b></td></tr>
+      <tr><td class="lvl">Флаєр / брошура</td><td><b>8–12 мм</b> від різу (поверх вильоту)</td><td><b>5–8 мм</b></td><td><b>6–10 мм</b></td></tr>
+      <tr><td class="lvl">Візитка (85×55)</td><td><b>4–5 мм</b> від різу</td><td>—</td><td><b>3–4 мм</b></td></tr>
+      <tr><td class="lvl">SMM пост (1080×1080 / 4:5)</td><td><b>64–80px</b> (~7%)</td><td><b>24–40px</b></td><td><b>40–48px</b></td></tr>
+      <tr><td class="lvl">SMM story / reels (1080×1920)</td><td><b>64px</b> з боків · <b>250px</b> зверху/знизу</td><td><b>24–40px</b></td><td><b>40–48px</b></td></tr>
+    </tbody>
+  </table>
+  <div class="callout"><span class="t">Спільне правило</span>Контент ніколи не торкається краю. Мінімальне поле — не менше висоти основного тексту ×2. Виліт (друк) і безпечні зони (сторіз) — це <strong>додатково</strong> до поля контенту, а не замість нього.</div>
+</div></section>
+
+<!-- 6 ICONS -->
+<section id="icons"><div class="wrap">
+  <span class="sec-num">06</span>
+  <div class="eyebrow">Іконки</div>
+  <h2>Іконографія</h2>
+  <p>Стиль — <strong>жирний контурний</strong> (bold rounded outline), заокруглені кінці й кути, як у наборі <code>Emai_icon/</code> (13 SVG, viewBox ~383). Колір <strong>Text 70</strong> або <strong>Amber</strong> для акцентних. Спершу завжди беремо готові іконки з папки.</p>
+
+  <div class="group-label">Товщина лінії залежить від розміру (оптичне масштабування)</div>
+  <p style="font-size:14px">Що менша іконка — то товща лінія відносно розміру, інакше дрібні «розсипаються», а великі важчають. Базове правило: <strong>≈7% від розміру іконки, мінімум 2px</strong>, малі розміри округлюємо вгору.</p>
+  <table class="ttable">
+    <thead><tr><th>Розмір іконки</th><th>Товщина лінії</th><th>% від розміру</th><th>Де застосовується</th></tr></thead>
+    <tbody>
+      <tr><td class="lvl">16–24 px</td><td><b>2 px</b></td><td>~8–12%</td><td>UI, дрібні мітки; максимум 2 елементи форми, без деталей</td></tr>
+      <tr><td class="lvl">32 px</td><td><b>2.5–3 px</b></td><td>~8–9%</td><td>кнопки, списки</td></tr>
+      <tr><td class="lvl">48–54 px</td><td><b>3.5–4 px</b></td><td>~7.5%</td><td>картки (стандарт)</td></tr>
+      <tr><td class="lvl">64 px</td><td><b>4.5–5 px</b></td><td>~7%</td><td>акцентні кружечки, hero-блоки</td></tr>
+      <tr><td class="lvl">96+ px</td><td><b>6–7 px</b></td><td>~6.5%</td><td>великі ілюстративні іконки, слайди</td></tr>
+    </tbody>
+  </table>
+  <div class="callout"><span class="t">Для наявного набору</span>Іконки <code>Emai_icon/</code> намальовані з фіксованою товщиною (виведена в контур) — вони оптимальні на <strong>32–96px</strong>. Менше 24px їх не ставимо: беремо спрощену версію або не використовуємо іконку взагалі.</div>
+
+  <div class="group-label">Нові іконки — якщо потрібної немає</div>
+  <p style="font-size:14px">Малюємо в стилі набору. Специфікація: полотно <strong>384×384</strong>, лінія <strong>28 од.</strong> (~7.3%), заокруглені кінці та кути (round cap/join), контурний стиль без заливок, 1–3 елементи форми, безпечне поле 24 од. від краю, монохром (перефарбовується через fill). Зберігаємо SVG у <code>Emai_icon/</code> з назвою англійською. Готовий промпт для генераторів — у файлі скіла <code>core/icon-prompt.md</code>.</p>
+  <div class="iconrow">
+    <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21c-4.5-3-8-6-8-10a4 4 0 0 1 8-1 4 4 0 0 1 8 1c0 4-3.5 7-8 10z"/></svg></div>
+    <div class="ic"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.5 21a2 2 0 0 1-3 0"/></svg></div>
+    <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+    <div class="ic accent"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+    <div class="ic accent"><svg viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg></div>
+  </div>
+  <p style="margin-top:16px">Checkmark у списках — stroke <code>#D69043</code>, товщина 1.75px.</p>
+</div></section>
+
+<!-- 7 PHOTO -->
+<section id="photo"><div class="wrap">
+  <span class="sec-num">07</span>
+  <div class="eyebrow">Фотографія</div>
+  <h2>Фотостиль</h2>
+  <p class="lead">Найсильніша впізнавана риса бренду — тепле, людяне, домашнє фото. Тримаємо його однаковим скрізь.</p>
+  <div class="photorules">
+    <div class="card yes"><h4>✓ Так</h4><ul>
+      <li>Тепле природне освітлення</li>
+      <li>Реальні люди — літні дорослі, родини</li>
+      <li>Спокійний, довірливий, домашній настрій</li>
+      <li>Пропорції карток 1:1 або 4:3</li>
+      <li>Overlay на відео: <code>rgba(0,0,0,.30)</code> знизу</li>
+    </ul></div>
+    <div class="card no"><h4>✕ Ні</h4><ul>
+      <li>Стокові кліше, штучні пози</li>
+      <li>Надто яскраві / кислотні кольори</li>
+      <li>Холодне синє освітлення</li>
+      <li>Технократичний, «медичний» вигляд</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<!-- 8 VOICE -->
+<section id="voice"><div class="wrap">
+  <span class="sec-num">08</span>
+  <div class="eyebrow">Tone of voice</div>
+  <h2>Голос бренду</h2>
+  <div class="tovoice">
+    <div class="c"><h4>Який ми</h4>Спокійний · турботливий · технологічний, але людяний. Простота й зрозумілість — аудиторія це літні люди та їхні родини.</div>
+    <div class="c"><h4>Який ми не</h4>Не агресивний маркетинг · не технократичний жаргон · не інфантильний. Не тиснемо страхом, а даємо впевненість і спокій.</div>
+  </div>
+  <div class="callout"><span class="t">Позиціонування</span><strong>«caring by tech»</strong> — технологія на службі турботи, а не навпаки.</div>
+</div></section>
+
+<!-- 9 PRINT -->
+<section id="print"><div class="wrap">
+  <span class="sec-num">09</span>
+  <div class="eyebrow">Носії · Друк</div>
+  <h2>Інструкції для друкованих макетів</h2>
+  <p class="lead">Флаєр, брошура, візитка, роздатка. Тут правила, що відрізняють друк від екрана — колір, роздільність, вильоти, шрифти.</p>
+
+  <div class="photorules">
+    <div class="card"><h4>🎨 Колір</h4><ul>
+      <li>Режим документа — <strong>CMYK</strong>, не RGB</li>
+      <li>Акцент друкуємо як <code>C15 M48 Y86 K1</code></li>
+      <li>Чорний текст — <strong>Ink</strong> у CMYK <code>76 68 46 35</code>, не «rich black» навмання</li>
+      <li>Плашки бренду — з таблиці CMYK у розділі «Кольори»</li>
+      <li>Для великих плашок/точного бренду проси у друкарні <strong>Pantone</strong>-відповідник бурштину</li>
+    </ul></div>
+    <div class="card"><h4>📐 Формат і геометрія</h4><ul>
+      <li>Роздільність зображень — <strong>300 dpi</strong> на реальний розмір</li>
+      <li><strong>Виліт (bleed) 2–3 мм</strong> з кожного боку (як у брошурі …+2)</li>
+      <li><strong>Безпечне поле</strong> — текст і лого не ближче 5 мм до краю</li>
+      <li>Флаєр A5/A6, брошура A4 (297×210), візитка 85×55 мм</li>
+    </ul></div>
+    <div class="card"><h4>🔤 Шрифти й текст</h4><ul>
+      <li>Gantari + Inter <strong>вбудувати</strong> у PDF або перевести в криві (outline)</li>
+      <li>Мінімальний кегль тексту — <strong>8–9 pt</strong> (аудиторія — літні люди, краще більше)</li>
+      <li>Ніякого рукописного/сторонніх шрифтів (як Bradley Hand у старому деку)</li>
+    </ul></div>
+    <div class="card"><h4>📄 Експорт</h4><ul>
+      <li><strong>PDF/X-1a</strong> або PDF/X-4, шрифти вбудовані</li>
+      <li>Профіль <strong>ISO Coated v2</strong> (крейдований) або уточнити в друкарні</li>
+      <li>Мітки різу + вильоти увімкнені</li>
+      <li>Лого — з векторного файлу (SVG/EPS/AI), не з JPG</li>
+    </ul></div>
+  </div>
+  <div class="group-label">Шрифти: розмір і співвідношення (pt)</div>
+  <p style="font-size:14px">Одиниця для друку — <strong>pt</strong>. Крок між рівнями ×~1.5; співвідношення H1 : основний текст ≈ <strong>3.5 : 1</strong>. Мінімальний кегль тіла — <strong>10 pt</strong> (аудиторія старша, дрібніше не робимо).</p>
+  <table class="ttable">
+    <thead><tr><th>Рівень</th><th>Шрифт / вага</th><th>Флаєр / брошура (A6–A4)</th><th>Візитка (85×55)</th></tr></thead>
+    <tbody>
+      <tr><td class="lvl">Заголовок 1-го&nbsp;порядку</td><td>Gantari Bold 700</td><td><b>32–40 pt</b></td><td>ім'я — <b>10–11 pt</b></td></tr>
+      <tr><td class="lvl">Заголовок 2-го&nbsp;порядку</td><td>Gantari Semibold 600</td><td><b>20–24 pt</b></td><td>посада — <b>8 pt</b></td></tr>
+      <tr><td class="lvl">Основний текст</td><td>Inter Regular 400</td><td><b>10–11 pt</b></td><td>контакти — <b>8 pt</b></td></tr>
+      <tr><td class="lvl">Другорядний текст</td><td>Inter Medium 500</td><td><b>8–9 pt</b></td><td>дрібний — <b>7–7.5 pt</b></td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout"><span class="t">Правило контрасту для друку</span>Фон завжди Cream або White; текст Ink/Dark. Ink — тільки текст, темних плашок під Ink не робимо. Акцентні блоки — на бурштині з кремовим/білим текстом.</div>
+</div></section>
+
+<!-- 10 SMM -->
+<section id="smm"><div class="wrap">
+  <span class="sec-num">10</span>
+  <div class="eyebrow">Носії · Соцмережі</div>
+  <h2>Інструкції для SMM</h2>
+  <p class="lead">Instagram <code>@emai_tech</code>, Facebook, LinkedIn. Екранний RGB, мобільна читабельність, безпечні зони під інтерфейс платформ.</p>
+
+  <div class="group-label">Формати (px, RGB / sRGB)</div>
+  <div class="grid" style="margin-top:14px">
+    <div class="pair"><div class="dotrow">Пост (квадрат)</div><div><strong>1080 × 1080</strong> · 1:1</div></div>
+    <div class="pair"><div class="dotrow">Пост (портрет)</div><div><strong>1080 × 1350</strong> · 4:5 — займає більше екрана в стрічці</div></div>
+    <div class="pair"><div class="dotrow">Story / Reels</div><div><strong>1080 × 1920</strong> · 9:16</div></div>
+    <div class="pair"><div class="dotrow">Каруселі</div><div>1080×1080 або 1080×1350, єдиний стиль на всіх слайдах</div></div>
+    <div class="pair"><div class="dotrow">Аватар</div><div>лого EMAi на Cream або білому, крапка над «i» — бурштин</div></div>
+  </div>
+
+  <div class="group-label">Каруселі LinkedIn (PDF-документ)</div>
+  <p style="font-size:14px">LinkedIn-карусель — це <strong>PDF-документ</strong>, який гортають у стрічці. Експорт із Canva / Figma / PPT у PDF.</p>
+  <table class="ttable">
+    <thead><tr><th>Формат</th><th>Розмір (px)</th><th>Аспект</th><th>Примітки</th></tr></thead>
+    <tbody>
+      <tr><td class="lvl">Портрет (реком.)</td><td><b>1080 × 1350</b></td><td>4:5</td><td>Більше екрана на мобільному — краще для читання</td></tr>
+      <tr><td class="lvl">Квадрат</td><td><b>1080 × 1080</b></td><td>1:1</td><td>Універсальний, той самий, що й пост</td></tr>
+    </tbody>
+  </table>
+  <div class="callout"><span class="t">Правила каруселі</span>5–10 слайдів, увесь PDF до ~10 MB. <strong>Єдиний стиль на всіх слайдах</strong>: перша — гачок (H1), останні — CTA + лого. Шрифти й внутрішні відступи — <strong>як у SMM-пості</strong> (таблиці нижче): поле 64–80px, gutter 24–40px. Номер слайда — другорядним текстом у кутку.</div>
+
+  <div class="group-label">Обкладинки та банери груп / сторінок</div>
+  <p style="font-size:14px">Банери сильно обрізаються на мобільному й перекриваються аватаром/назвою — тому <strong>ключове (лого, слоган) тримаємо в безпечній зоні</strong>.</p>
+  <table class="ttable">
+    <thead><tr><th>Носій</th><th>Розмір (px)</th><th>Аспект</th><th>Безпечна зона</th></tr></thead>
+    <tbody>
+      <tr><td class="lvl">Facebook — обкладинка групи / сторінки</td><td><b>1640 × 856</b><br><span style="color:var(--dark-soft)">показ ~820×312</span></td><td>~16:9</td><td>Ключове — по центру; краї й низ обрізаються на моб. та перекриваються назвою групи</td></tr>
+      <tr><td class="lvl">LinkedIn — банер групи</td><td><b>1536 × 768</b></td><td>2:1</td><td>Текст і лого — центр</td></tr>
+      <tr><td class="lvl">LinkedIn — обкладинка сторінки (компанії)</td><td><b>1128 × 191</b></td><td>~6:1</td><td>Дуже вузька; лого/слоган праворуч — лівий кут перекриває логотип сторінки</td></tr>
+      <tr><td class="lvl">LinkedIn — банер профілю</td><td><b>1584 × 396</b></td><td>4:1</td><td>Ліву третину тримати вільною (там фото профілю)</td></tr>
+    </tbody>
+  </table>
+  <div class="callout"><span class="t">Стиль обкладинок</span>Фон — Cream / White або тепле фото з overlay <code>rgba(0,0,0,.30)</code>. Лого EMAi з захисним полем, текст мінімальний (1 короткий рядок). Темні поверхні — Dark, не Ink.</div>
+
+  <div class="group-label">Шрифти: розмір і співвідношення (px на полотні 1080)</div>
+  <p style="font-size:14px">Одиниця — <strong>px</strong> на реальному полотні (1080 по ширині). Крок між рівнями ×~1.5. Мінімум для тіла — <strong>28 px</strong> (читабельність зі смартфона для старшої аудиторії). На макет — не більше 2 розмірів шрифту.</p>
+  <table class="ttable">
+    <thead><tr><th>Рівень</th><th>Шрифт / вага</th><th>Пост 1080×1080 / 4:5</th><th>Story / Reels 1080×1920</th></tr></thead>
+    <tbody>
+      <tr><td class="lvl">Заголовок 1-го&nbsp;порядку</td><td>Gantari Bold 700</td><td><b>64–90 px</b></td><td><b>72–100 px</b></td></tr>
+      <tr><td class="lvl">Заголовок 2-го&nbsp;порядку</td><td>Gantari Semibold 600</td><td><b>40–52 px</b></td><td><b>48–60 px</b></td></tr>
+      <tr><td class="lvl">Основний текст</td><td>Inter Regular 400</td><td><b>28–32 px</b></td><td><b>30–36 px</b></td></tr>
+      <tr><td class="lvl">Другорядний текст</td><td>Inter Medium 500</td><td><b>22–24 px</b></td><td><b>24–28 px</b></td></tr>
+    </tbody>
+  </table>
+
+  <div class="photorules" style="margin-top:26px">
+    <div class="card"><h4>📱 Безпечні зони (Stories/Reels)</h4><ul>
+      <li>Зверху й знизу лишай <strong>~250 px</strong> вільними — там аватар, підписи, кнопки платформи</li>
+      <li>Ключовий текст і лого — у центральній третині</li>
+      <li>CTA — над нижньою зоною, не впритул до краю</li>
+    </ul></div>
+    <div class="card"><h4>🔤 Читабельність</h4><ul>
+      <li>Заголовок на пості — Gantari, великий (мін. ~48 px на 1080)</li>
+      <li>Текст короткий, високий контраст (Ink/Dark на Cream)</li>
+      <li>Не більше 2 розмірів шрифту на макет</li>
+      <li>Аудиторія старша — не дрібни текст</li>
+    </ul></div>
+    <div class="card"><h4>🎨 Стиль</h4><ul>
+      <li>Фон Cream <code>#F7F4EB</code> або White; темні поверхні — Dark, не Ink</li>
+      <li>Акцент — тільки бурштин <code>#D69043</code></li>
+      <li>Лого в кутку кожного макета (захисне поле!)</li>
+      <li>Фото — теплі, реальні люди, як у розділі «Фото»</li>
+    </ul></div>
+    <div class="card"><h4>♿ Дрібниці, що важливі</h4><ul>
+      <li>Текст на фото — з напівпрозорою підкладкою <code>rgba(0,0,0,.30)</code></li>
+      <li>Alt-текст до постів для доступності</li>
+      <li>Єдині шаблони: 2–3 сітки, які повторюються → впізнаваність</li>
+      <li>Слоган «caring by tech» — де доречно, не на кожному пості</li>
+    </ul></div>
+  </div>
+</div></section>
+
+<!-- 11 PRESENTATION -->
+<section id="ppt"><div class="wrap">
+  <span class="sec-num">11</span>
+  <div class="eyebrow">Носії · Презентація</div>
+  <h2>Правила презентації (PPT)</h2>
+  <p class="lead">Повний бізнес-/інвест-дек. Формат <strong>16:9, 1920×1080 px</strong> (33.87 × 19.05 см). Шрифти Gantari + Inter (fallback DM Sans). Один макет — одна думка.</p>
+
+  <div class="callout"><span class="t">Каркас слайда</span>Поле від краю <code>64–80px</code> · gutter між блоками <code>32–48px</code> · padding усередині блоку <code>40–56px</code>. Номер слайда — правий нижній кут, Inter 14px, Text 70. Логотип — лівий нижній кут (окрім титулу/розділювача).</div>
+
+  <div class="group-label">Типографічна шкала слайдів (px на 1920×1080)</div>
+  <table class="ttable">
+    <thead><tr><th>Рівень</th><th>Шрифт / вага</th><th>Розмір</th><th>Колір</th></tr></thead>
+    <tbody>
+      <tr><td class="lvl">Титул (cover)</td><td>Gantari Bold 700</td><td><b>80–96 px</b></td><td>White на Surface Dark</td></tr>
+      <tr><td class="lvl">Заголовок слайда</td><td>Gantari Semibold 600</td><td><b>40–48 px</b></td><td>Ink</td></tr>
+      <tr><td class="lvl">Підзаголовок</td><td>Gantari Medium 500</td><td><b>24–28 px</b></td><td>Ink</td></tr>
+      <tr><td class="lvl">Основний текст / булети</td><td>Inter Regular 400</td><td><b>18–22 px</b></td><td>Text 70</td></tr>
+      <tr><td class="lvl">Підпис / джерела</td><td>Inter Medium 500</td><td><b>12–14 px</b></td><td>Text 70</td></tr>
+      <tr><td class="lvl">KPI / великі цифри</td><td>Inter Bold 700</td><td><b>60–96 px</b></td><td><b>Amber або Cream</b></td></tr>
+    </tbody>
+  </table>
+
+  <div class="group-label">Типи слайдів (повний дек)</div>
+  <div class="photorules" style="grid-template-columns:1fr 1fr">
+    <div class="card"><h4>Структурні</h4><ul>
+      <li><b>Титул</b> — Surface Dark фон, лого + слоган, назва деку</li>
+      <li><b>Розділювач секції</b> — Surface Dark, велика цифра/назва секції</li>
+      <li><b>Контент</b> — заголовок + текст/булети</li>
+      <li><b>2 колонки</b> — текст + фото або текст/текст</li>
+      <li><b>Цитата / твердження</b> — один великий рядок</li>
+      <li><b>Контакти / фінал</b> — лого, дані, QR</li>
+    </ul></div>
+    <div class="card"><h4>Дані та інфографіка</h4><ul>
+      <li><b>KPI / метрики</b> — ряд великих чисел</li>
+      <li><b>TAM / SAM / SOM</b> — вкладені кола або стовпці</li>
+      <li><b>Діаграма</b> — bar / line / pie</li>
+      <li><b>Порівняння</b> — 2–3 колонки (картки)</li>
+      <li><b>Таймлайн / роадмап</b> — місяці/етапи</li>
+      <li><b>Команда</b> — фото + ролі</li>
+      <li><b>The Ask / фінанси</b> — великі суми + розкладка</li>
+    </ul></div>
+  </div>
+
+  <div class="group-label">Інфографіка — стиль</div>
+  <div class="photorules" style="grid-template-columns:1fr 1fr">
+    <div class="card"><h4>Кольори діаграм</h4><ul>
+      <li>Основний ряд — <b>Amber</b> <code>#D69043</code></li>
+      <li>Далі — Surface Dark, Amber Soft, Grey Light</li>
+      <li>Сітка / осі — Line <code>#E2DDD0</code>; підписи — Text 70</li>
+      <li><b>Ніяких</b> стандартних яскравих кольорів Excel</li>
+    </ul></div>
+    <div class="card"><h4>Блоки й елементи</h4><ul>
+      <li>KPI / картки — White, border Line, радіус 24px</li>
+      <li>TAM/SAM/SOM — градації Amber → Amber Soft → Cream Deep</li>
+      <li>Таймлайн — лінія Line, вузли Amber</li>
+      <li>Галочки в порівняннях — Amber; іконки лінійні 1.75px</li>
+    </ul></div>
+  </div>
+  <div class="callout"><span class="t">Правило</span>Фон слайдів — Cream або White; Surface Dark лише на перебивках і фіналі (є також амбер-варіант). Акцент — тільки Amber. На слайді максимум 4 рівні тексту й 1 головна думка.</div>
+  <div class="callout fix"><span class="t">Великі цифри — завжди Amber або Cream</span>Усі великі числа (KPI, номери розділів, суми) — <strong>тільки Amber або Cream</strong>, ніколи чорні/сірі. На світлому фоні → <strong>Amber</strong>; на амбер/темному фоні → <strong>Cream</strong>.</div>
+</div></section>
+
+<!-- 12 CHECKLIST -->
+<section id="check"><div class="wrap">
+  <span class="sec-num">12</span>
+  <div class="eyebrow">Чекліст</div>
+  <h2>Швидка перевірка макета</h2>
+  <div class="checklist">
+    <label><input type="checkbox">Фон: Cream <code>#F7F4EB</code> або White <code>#FFFFFF</code></label>
+    <label><input type="checkbox">Заголовок: Gantari, <code>#000000</code> (Text 100), трекінг −0.02em</label>
+    <label><input type="checkbox">Текст: Inter Regular, <code>#4D4D4D</code> (Text 70)</label>
+    <label><input type="checkbox">Акцент: тільки <code>#D69043</code> — жодних інших кольорів для виділення</label>
+    <label><input type="checkbox">Картки: білі, border <code>#E2DDD0</code>, радіус 24px</label>
+    <label><input type="checkbox">Ціни: Inter Bold, <code>#D69043</code></label>
+    <label><input type="checkbox">Іконки: лінійні, stroke 1.75px</label>
+    <label><input type="checkbox">Назва написана як <strong>EMAi</strong> (з малою «i»)</label>
+    <label><input type="checkbox">Фото: тепле світло, реальні люди, без стокових кліше</label>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  EMAi Design System · Foundations v1.0 · emai.group · 2026 — внутрішній робочий документ.<br>
+  Далі за дорожньою картою: <strong>Крок 4</strong> — компоненти (кнопки, картки, ціни, CTA), потім <strong>Крок 5</strong> — шаблони носіїв.
+</div></footer>
+
+<div class="toast" id="toast">Скопійовано</div>
+
+<script>
+  const toast=document.getElementById('toast');
+  document.querySelectorAll('.sw').forEach(sw=>{
+    sw.addEventListener('click',()=>{
+      const hex=sw.dataset.hex;
+      navigator.clipboard&&navigator.clipboard.writeText(hex);
+      toast.textContent=hex+' скопійовано';
+      toast.classList.add('show');
+      clearTimeout(window._t);window._t=setTimeout(()=>toast.classList.remove('show'),1400);
+    });
+  });
+</script>
+</body>
+</html>
